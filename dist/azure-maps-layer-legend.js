@@ -187,7 +187,7 @@ MIT License
          */
         Utils.replacePlaceholder = function (obj, placeholder, value, removeQutes) {
             if (removeQutes) {
-                placeholder = "[\"']?" + placeholder + "[\"']?";
+                placeholder = "[\"']?".concat(placeholder, "[\"']?");
             }
             var rx = RegExp(placeholder, 'gi');
             return JSON.parse(JSON.stringify(obj).replace(rx, value + ''));
@@ -294,7 +294,7 @@ MIT License
         Utils.measureText = function (text, fontSize, font) {
             var c = document.createElement("canvas");
             var ctx = c.getContext("2d");
-            ctx.font = fontSize + "px " + (font || 'Arial');
+            ctx.font = "".concat(fontSize, "px ").concat(font || 'Arial');
             //Replace hexadecimal characters with capital W (largest single character) for measuring as special the canvas does not condense these characters.
             if (Utils.HexCharRx.test(text)) {
                 text = text.replace(Utils.HexCharRx, 'W');
@@ -790,7 +790,7 @@ MIT License
                     }
                     else {
                         var l = getString(exp[i + 2], resx, numberFormatLocales, numberFormat);
-                        stop_1.label = lastLabel + " - " + l;
+                        stop_1.label = "".concat(lastLabel, " - ").concat(l);
                         lastLabel = l;
                     }
                     items.push(stop_1);
@@ -1328,7 +1328,7 @@ MIT License
                     else {
                         btnStyle.left = '0';
                     }
-                    btnStyle.transform = "rotate(" + rotation + "deg)";
+                    btnStyle.transform = "rotate(".concat(rotation, "deg)");
                     self._btnRotation = rotation;
                     container.onclick = self._contentBtnClicked;
                     var btn = document.createElement("button");
@@ -2340,16 +2340,16 @@ MIT License
                     switch (shape) {
                         case 'line':
                             var y = shapeSize * 0.5;
-                            svg = "<line x1=\"0\" y1=\"" + y + "\" x2=\"" + shapeSize + "\" y2=\"" + y + "\" stroke=\"" + c + "\" stroke-width=\"" + strokeWidth + "\" />";
+                            svg = "<line x1=\"0\" y1=\"".concat(y, "\" x2=\"").concat(shapeSize, "\" y2=\"").concat(y, "\" stroke=\"").concat(c, "\" stroke-width=\"").concat(strokeWidth, "\" />");
                             break;
                         case 'square':
-                            svg = "<rect x=\"" + strokeWidth + "\" y=\"" + strokeWidth + "\" height=\"" + fillSize + "\" width=\"" + fillSize + "\" fill=\"" + c + "\" stroke-width=\"" + strokeWidth + "\"/>";
+                            svg = "<rect x=\"".concat(strokeWidth, "\" y=\"").concat(strokeWidth, "\" height=\"").concat(fillSize, "\" width=\"").concat(fillSize, "\" fill=\"").concat(c, "\" stroke-width=\"").concat(strokeWidth, "\"/>");
                             break;
                         case 'triangle':
-                            svg = "<polygon points=\"" + strokeWidth + " " + fillSize + ", " + fillSize + " " + fillSize + ", " + (fillSize + strokeWidth) * 0.5 + " " + strokeWidth + "\" fill=\"" + c + "\" stroke-width=\"" + strokeWidth + "\"/>";
+                            svg = "<polygon points=\"".concat(strokeWidth, " ").concat(fillSize, ", ").concat(fillSize, " ").concat(fillSize, ", ").concat((fillSize + strokeWidth) * 0.5, " ").concat(strokeWidth, "\" fill=\"").concat(c, "\" stroke-width=\"").concat(strokeWidth, "\"/>");
                             break;
                         case 'circle':
-                            svg = "<circle cx=\"" + cx + "\" cy=\"" + cx + "\" r=\"" + (cx - strokeWidth) + "\" fill=\"" + c + "\" stroke-width=\"" + strokeWidth + "\"/>";
+                            svg = "<circle cx=\"".concat(cx, "\" cy=\"").concat(cx, "\" r=\"").concat(cx - strokeWidth, "\" fill=\"").concat(c, "\" stroke-width=\"").concat(strokeWidth, "\"/>");
                             break;
                         default:
                             //Is either image URL or inline image string.
@@ -2365,10 +2365,10 @@ MIT License
                     maxSize_1 = Math.max(maxSize_1, shapeSize);
                     var itemShape = document.createElement('div');
                     if (svg) {
-                        itemShape.innerHTML = "<svg class=\"atlas-legend-category-shape\" style=\"width:" + shapeSize + "px;\" viewBox=\"0 0 " + shapeSize + " " + shapeSize + "\" xmlns=\"http://www.w3.org/2000/svg\">" + svg + "</svg>";
+                        itemShape.innerHTML = "<svg class=\"atlas-legend-category-shape\" style=\"width:".concat(shapeSize, "px;\" viewBox=\"0 0 ").concat(shapeSize, " ").concat(shapeSize, "\" xmlns=\"http://www.w3.org/2000/svg\">").concat(svg, "</svg>");
                     }
                     else if (imageSrc) {
-                        itemShape.innerHTML = "<img class=\"atlas-legend-category-shape\" style=\"width:" + shapeSize + "px;\" src=\"" + imageSrc + "\"/>";
+                        itemShape.innerHTML = "<img class=\"atlas-legend-category-shape\" style=\"width:".concat(shapeSize, "px;\" src=\"").concat(imageSrc, "\"/>");
                     }
                     if (item.cssClass) {
                         itemDiv.classList.add(item.cssClass);
@@ -2535,7 +2535,7 @@ MIT License
                 });
                 if (isVertical) {
                     gradientDirection = 'x1="0%" y1="0%" x2="0%" y2="100%" gradientTransform="rotate(180,0.5,0.5)"';
-                    textStyle = "fill:" + fontColor + ";font-size:" + fontSize_1 + "px;font-family:" + fontFamily_1 + ";text-align:center;text-anchor:start;dominant-baseline:middle;\"";
+                    textStyle = "fill:".concat(fontColor, ";font-size:").concat(fontSize_1, "px;font-family:").concat(fontFamily_1, ";text-align:center;text-anchor:start;dominant-baseline:middle;\"");
                     barWidth = thickness;
                     barHeight = barLength_1;
                     var maxTextWidth_1 = 0;
@@ -2543,11 +2543,11 @@ MIT License
                     var tickEndX_1 = tickStartX_1 + tickSize_1;
                     var textX_1 = tickEndX_1 + tickGap;
                     if (tickSize_1 > 0) {
-                        tickLines_1.push("<line x1=\"" + tickStartX_1 + "\" y1=\"0\" x2=\"" + tickStartX_1 + "\" y2=\"" + barLength_1 + "\" />");
+                        tickLines_1.push("<line x1=\"".concat(tickStartX_1, "\" y1=\"0\" x2=\"").concat(tickStartX_1, "\" y2=\"").concat(barLength_1, "\" />"));
                     }
                     legendType.stops.forEach(function (item) {
                         var c = item.color || 'black';
-                        svgStops_1.push("<stop offset=\"" + item.offset * 100 + "%\" stop-color=\"" + c + "\" />");
+                        svgStops_1.push("<stop offset=\"".concat(item.offset * 100, "%\" stop-color=\"").concat(c, "\" />"));
                         var stringLabel = Utils.getString(item.label, resx, legendType.numberFormatLocales, legendType.numberFormat);
                         if (stringLabel && stringLabel !== '') {
                             var y1 = barLength_1 * (1 - item.offset);
@@ -2558,9 +2558,9 @@ MIT License
                                 y1 += 1;
                             }
                             if (tickSize_1 > 0) {
-                                tickLines_1.push("<line x1=\"" + tickStartX_1 + "\" y1=\"" + y1 + "\" x2=\"" + tickEndX_1 + "\" y2=\"" + y1 + "\" />");
+                                tickLines_1.push("<line x1=\"".concat(tickStartX_1, "\" y1=\"").concat(y1, "\" x2=\"").concat(tickEndX_1, "\" y2=\"").concat(y1, "\" />"));
                             }
-                            textItems_1.push("<text x=\"" + textX_1 + "\" y=\"" + y1 + "\">" + stringLabel + "</text>");
+                            textItems_1.push("<text x=\"".concat(textX_1, "\" y=\"").concat(y1, "\">").concat(stringLabel, "</text>"));
                             maxTextWidth_1 = Math.max(Utils.measureText(stringLabel, fontSize_1, fontFamily_1).width, maxTextWidth_1);
                         }
                     });
@@ -2571,7 +2571,7 @@ MIT License
                 }
                 else {
                     gradientDirection = 'x1="0%" y1="0%" x2="100%" y2="0%"';
-                    textStyle = "fill:" + fontColor + ";font-size:" + fontSize_1 + "px;font-family:" + fontFamily_1 + ";text-align:center;text-anchor:middle;dominant-baseline:hanging;";
+                    textStyle = "fill:".concat(fontColor, ";font-size:").concat(fontSize_1, "px;font-family:").concat(fontFamily_1, ";text-align:center;text-anchor:middle;dominant-baseline:hanging;");
                     barWidth = barLength_1;
                     barHeight = thickness;
                     var maxTextWidth_2 = 0;
@@ -2579,11 +2579,11 @@ MIT License
                     var tickEndY_1 = tickStartY_1 + tickSize_1;
                     var textY_1 = tickEndY_1 + tickGap;
                     if (tickSize_1 > 0) {
-                        tickLines_1.push("<line x1=\"0\" y1=\"" + tickStartY_1 + "\" x2=\"" + barLength_1 + "\" y2=\"" + tickStartY_1 + "\" />");
+                        tickLines_1.push("<line x1=\"0\" y1=\"".concat(tickStartY_1, "\" x2=\"").concat(barLength_1, "\" y2=\"").concat(tickStartY_1, "\" />"));
                     }
                     legendType.stops.forEach(function (item) {
                         var c = item.color || 'black';
-                        svgStops_1.push("<stop offset=\"" + item.offset * 100 + "%\" stop-color=\"" + c + "\" />");
+                        svgStops_1.push("<stop offset=\"".concat(item.offset * 100, "%\" stop-color=\"").concat(c, "\" />"));
                         var stringLabel = Utils.getString(item.label, resx, legendType.numberFormatLocales, legendType.numberFormat);
                         if (stringLabel && stringLabel !== '') {
                             var x1 = barLength_1 * item.offset;
@@ -2594,9 +2594,9 @@ MIT License
                                 x1 += 1;
                             }
                             if (tickSize_1 > 0) {
-                                tickLines_1.push("<line x1=\"" + x1 + "\" y1=\"" + tickStartY_1 + "\" x2=\"" + x1 + "\" y2=\"" + tickEndY_1 + "\" />");
+                                tickLines_1.push("<line x1=\"".concat(x1, "\" y1=\"").concat(tickStartY_1, "\" x2=\"").concat(x1, "\" y2=\"").concat(tickEndY_1, "\" />"));
                             }
-                            textItems_1.push("<text x=\"" + x1 + "\" y=\"" + textY_1 + "\">" + stringLabel + "</text>");
+                            textItems_1.push("<text x=\"".concat(x1, "\" y=\"").concat(textY_1, "\">").concat(stringLabel, "</text>"));
                             maxTextWidth_2 = Math.max(Utils.measureText(stringLabel, fontSize_1, fontFamily_1).width, maxTextWidth_2);
                         }
                     });
@@ -2606,7 +2606,7 @@ MIT License
                     svgHeight = height;
                 }
                 var id = Utils.uuid();
-                var svg = "\n                <svg width=\"" + svgWidth + "\" height=\"" + svgHeight + "\" viewBox=\"0 0 " + width + " " + height + "\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                    <defs>                    \n                        <pattern id=\"atlas-pattern-" + id + "\" x=\"0\" y=\"0\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\">\n                            <rect x=\"0\" y=\"0\" width=\"10\" height=\"10\" fill=\"white\"/>\n                            <rect x=\"0\" y=\"0\" width=\"5\" height=\"5\" fill=\"#ccc\"/>\n                            <rect x=\"5\" y=\"5\" width=\"5\" height=\"5\" fill=\"#ccc\"/>\n                        </pattern>\n\n                        <linearGradient id=\"atlas-gradient-" + id + "\" " + gradientDirection + ">" + svgStops_1.join('') + "</linearGradient>\n                    </defs>\n\n                    <rect x=\"0\" y=\"0\" width=\"" + barWidth + "\" height=\"" + barHeight + "\" fill=\"url('#atlas-pattern-" + id + "')\" />  \n                    <rect x=\"0\" y=\"0\" width=\"" + barWidth + "\" height=\"" + barHeight + "\" fill=\"url('#atlas-gradient-" + id + "')\" />\n\n                    <g style=\"stroke:" + fontColor + ";stroke-width:2;\">" + tickLines_1.join('') + "</g>\n\n                    <g style=\"" + textStyle + "\">" + textItems_1.join('') + "</g>\n                </svg>\n                ";
+                var svg = "\n                <svg width=\"".concat(svgWidth, "\" height=\"").concat(svgHeight, "\" viewBox=\"0 0 ").concat(width, " ").concat(height, "\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n                    <defs>                    \n                        <pattern id=\"atlas-pattern-").concat(id, "\" x=\"0\" y=\"0\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\">\n                            <rect x=\"0\" y=\"0\" width=\"10\" height=\"10\" fill=\"white\"/>\n                            <rect x=\"0\" y=\"0\" width=\"5\" height=\"5\" fill=\"#ccc\"/>\n                            <rect x=\"5\" y=\"5\" width=\"5\" height=\"5\" fill=\"#ccc\"/>\n                        </pattern>\n\n                        <linearGradient id=\"atlas-gradient-").concat(id, "\" ").concat(gradientDirection, ">").concat(svgStops_1.join(''), "</linearGradient>\n                    </defs>\n\n                    <rect x=\"0\" y=\"0\" width=\"").concat(barWidth, "\" height=\"").concat(barHeight, "\" fill=\"url('#atlas-pattern-").concat(id, "')\" />  \n                    <rect x=\"0\" y=\"0\" width=\"").concat(barWidth, "\" height=\"").concat(barHeight, "\" fill=\"url('#atlas-gradient-").concat(id, "')\" />\n\n                    <g style=\"stroke:").concat(fontColor, ";stroke-width:2;\">").concat(tickLines_1.join(''), "</g>\n\n                    <g style=\"").concat(textStyle, "\">").concat(textItems_1.join(''), "</g>\n                </svg>\n                ");
                 itemContainer.innerHTML = svg;
                 legend.appendChild(itemContainer);
             }
@@ -3007,7 +3007,7 @@ MIT License
                     //<label><input type="checkbox" /><span>Option 1</span></label>
                     //<label><input type="radio" name=""/><span>Option 1</span></label>
                     var label = document.createElement('label');
-                    label.className = "atlas-layer-" + type;
+                    label.className = "atlas-layer-".concat(type);
                     var input = document.createElement('input');
                     input.type = type;
                     if (type === 'radio') {
